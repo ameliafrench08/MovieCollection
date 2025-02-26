@@ -367,6 +367,46 @@ public class MovieCollection {
   
   private void listHighestRevenue()
   {
+
+    ArrayList<Movie> tempMovies = new ArrayList<>(movies);
+    ArrayList<Movie> topFifty = new ArrayList<>();
+    int index = 50;
+    while (index > 0){
+      int max = tempMovies.getFirst().getRevenue();
+      int maxIndex = 0;
+      for (int i = 0; i < tempMovies.size(); i++){
+        if (tempMovies.get(i).getRevenue() > max){
+          maxIndex = i;
+        }
+      }
+      topFifty.add(tempMovies.get(maxIndex));
+      tempMovies.remove(maxIndex);
+      index--;
+
+    }
+
+
+    for (int i = 0; i < 50; i++) {
+      String title = topFifty.get(i).getTitle();
+
+      // this will print index 0 as choice 1 in the results list; better for user!
+      int choiceNum = i + 1;
+
+      System.out.println("" + choiceNum + ". " + title);
+    }
+
+    System.out.println("Which movie would you like to learn more about?");
+    System.out.print("Enter number: ");
+
+    int choice = scanner.nextInt();
+    scanner.nextLine();
+
+    Movie selectedMovie = topFifty.get(choice - 1);
+
+    displayMovieInfo(selectedMovie);
+
+    System.out.println("\n ** Press Enter to Return to Main Menu **");
+    scanner.nextLine();
   
   }
   
